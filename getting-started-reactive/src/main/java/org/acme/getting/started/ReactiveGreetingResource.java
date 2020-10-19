@@ -26,7 +26,6 @@ public class ReactiveGreetingResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("/greeting/{count}/{name}")
     public Multi<String> greetings(@PathParam int count, @PathParam String name) {
         return service.greetings(count, name);

@@ -10,7 +10,6 @@ import java.util.List;
 public class PriceResource {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Price> getAllPrices() {
         return Price.listAll();
     }

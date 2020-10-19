@@ -1,24 +1,22 @@
 package org.acme.hibernate.reactive;
 
 import java.util.function.Function;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.hibernate.reactive.mutiny.Mutiny;
-
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -27,8 +25,6 @@ import io.smallrye.mutiny.Uni;
 
 @Path("fruits")
 @ApplicationScoped
-@Produces("application/json")
-@Consumes("application/json")
 public class FruitMutinyResource {
     private static final Logger LOGGER = Logger.getLogger(FruitMutinyResource.class.getName());
 

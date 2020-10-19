@@ -69,7 +69,6 @@ public class S3SyncClientResource extends CommonResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<FileObject> listFiles() {
         ListObjectsRequest listRequest = ListObjectsRequest.builder().bucket(bucketName).build();
 

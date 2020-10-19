@@ -4,8 +4,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -31,7 +29,6 @@ public class ResourceUsingWebClient {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
     public Uni<JsonObject> getFruitData(@PathParam("name") String name) {
         return client.get("/api/fruit/" + name)

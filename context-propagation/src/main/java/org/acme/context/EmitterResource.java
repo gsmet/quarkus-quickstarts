@@ -45,7 +45,6 @@ public class EmitterResource {
 
     @GET
     @Path("/prices/all")
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Price> getAllPrices() {
         return Price.listAll();
     }

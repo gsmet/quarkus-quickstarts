@@ -70,7 +70,6 @@ public class S3AsyncClientResource extends CommonResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<FileObject>> listFiles() {
         ListObjectsRequest listRequest = ListObjectsRequest.builder()
                 .bucket(bucketName)
