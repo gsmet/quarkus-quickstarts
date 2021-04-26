@@ -25,6 +25,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,10 +41,11 @@ import io.quarkus.test.junit.QuarkusTest;
  * Integration testing of the application with an embedded broker.
  */
 @QuarkusTest
-@QuarkusTestResource(KafkaResource.class)
+@QuarkusTestResource(KafkaTestResource.class)
 public class AggregatorTest {
 
-    static final String BROKER_LIST = "localhost:9092";
+    @ConfigProperty(name = "kafka.bootstrap.servers")
+    String bootstrapServers;
 
     KafkaProducer<Integer, String> temperatureProducer;
 
@@ -83,7 +85,7 @@ public class AggregatorTest {
 
     private Properties consumerProps() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaTestResource.getBootstrapServers());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group-id");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -92,7 +94,7 @@ public class AggregatorTest {
 
     private Properties producerProps() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaTestResource.getBootstrapServers());
         return props;
     }
 
