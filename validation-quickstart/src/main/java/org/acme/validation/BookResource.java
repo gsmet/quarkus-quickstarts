@@ -27,6 +27,13 @@ public class BookResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
+        ClassLoader currentCL = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(currentCL);
+        try {
+            Thread.currentThread().setContextClassLoader(null);
+        } finally {
+            Thread.currentThread().setContextClassLoader(currentCL);
+        }
         return "hello";
     }
 
