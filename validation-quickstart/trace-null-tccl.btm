@@ -1,9 +1,38 @@
-RULE Exception if CL is null
+RULE setContextClassLoader
 CLASS java.lang.Thread
 METHOD setContextClassLoader(java.lang.ClassLoader)
 IF $1 == null
 DO traceln("##########");
-traceln("# Setting TCCL to null");
+traceln("# Setting TCCL to " + $1 +  " for thread " + Thread.currentThread());
+traceln("##########");
+traceStack();
+traceln("##########");
+traceln("##########");
+traceln("");
+traceln("");
+ENDRULE
+
+RULE getContextClassLoader
+CLASS java.lang.Thread
+METHOD getContextClassLoader()
+AT EXIT
+IF $! == null
+DO traceln("##########");
+traceln("# Getting a null TCCL for thread " + Thread.currentThread());
+traceln("##########");
+traceStack();
+traceln("##########");
+traceln("##########");
+traceln("");
+traceln("");
+ENDRULE
+
+RULE Creation of thread
+CLASS java.lang.Thread
+METHOD <init>
+IF TRUE
+DO traceln("##########");
+traceln("# Creating thread " + java.util.Arrays.toString($*) + " with parent CL " + Thread.currentThread().getContextClassLoader());
 traceln("##########");
 traceStack();
 traceln("##########");
